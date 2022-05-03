@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DriversModelStoreContainer" CdmEntityContainer="DriversEntities">
+    <EntitySetMapping Name="ColanderToDrivers">
+      <EntityTypeMapping TypeName="DriversModel.ColanderToDriver">
+        <MappingFragment StoreEntitySet="ColanderToDriver">
+          <ScalarProperty Name="ColanderToDriverID" ColumnName="ColanderToDriverID" />
+          <ScalarProperty Name="TypeOfColanderID" ColumnName="TypeOfColanderID" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drivers">
+      <EntityTypeMapping TypeName="DriversModel.Driver">
+        <MappingFragment StoreEntitySet="Drivers">
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+          <ScalarProperty Name="PhoneDriver" ColumnName="PhoneDriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kavims">
+      <EntityTypeMapping TypeName="DriversModel.kavim">
+        <MappingFragment StoreEntitySet="kavim">
+          <ScalarProperty Name="KavId" ColumnName="KavId" />
+          <ScalarProperty Name="KavNamber" ColumnName="KavNamber" />
+          <ScalarProperty Name="Point1" ColumnName="Point1" />
+          <ScalarProperty Name="Point2" ColumnName="Point2" />
+          <ScalarProperty Name="Direction" ColumnName="Direction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KavimToColanders">
+      <EntityTypeMapping TypeName="DriversModel.KavimToColander">
+        <MappingFragment StoreEntitySet="KavimToColander">
+          <ScalarProperty Name="KavimToColanderID" ColumnName="KavimToColanderID" />
+          <ScalarProperty Name="TimeId" ColumnName="TimeId" />
+          <ScalarProperty Name="ColanderToDriverID" ColumnName="ColanderToDriverID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KavTimes">
+      <EntityTypeMapping TypeName="DriversModel.KavTime">
+        <MappingFragment StoreEntitySet="KavTime">
+          <ScalarProperty Name="TimeId" ColumnName="TimeId" />
+          <ScalarProperty Name="KavId" ColumnName="KavId" />
+          <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+          <ScalarProperty Name="LongTime_minutes_" ColumnName="LongTime(minutes)" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preferences">
+      <EntityTypeMapping TypeName="DriversModel.Preference">
+        <MappingFragment StoreEntitySet="Preference">
+          <ScalarProperty Name="PreferID" ColumnName="PreferID" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="TypeOfColanderID" ColumnName="TypeOfColanderID" />
+          <ScalarProperty Name="ExtraHour" ColumnName="ExtraHour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfColanders">
+      <EntityTypeMapping TypeName="DriversModel.TypeOfColander">
+        <MappingFragment StoreEntitySet="TypeOfColander">
+          <ScalarProperty Name="TypeOfColanderID" ColumnName="TypeOfColanderID" />
+          <ScalarProperty Name="ColanderName" ColumnName="ColanderName" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchedularViews">
+      <EntityTypeMapping TypeName="DriversModel.SchedularView">
+        <MappingFragment StoreEntitySet="SchedularView">
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="ColanderName" ColumnName="ColanderName" />
+          <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+          <ScalarProperty Name="ColanderToDriverID" ColumnName="ColanderToDriverID" />
+          <ScalarProperty Name="TimeId" ColumnName="TimeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

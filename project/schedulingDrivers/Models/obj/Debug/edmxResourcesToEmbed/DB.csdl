@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriversModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ColanderToDriver">
+    <Key>
+      <PropertyRef Name="ColanderToDriverID" />
+    </Key>
+    <Property Name="ColanderToDriverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfColanderID" Type="Int32" Nullable="false" />
+    <Property Name="DriverId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Driver" Relationship="Self.FK__ColanderT__Drive__3F466844" FromRole="ColanderToDriver" ToRole="Drivers" />
+    <NavigationProperty Name="TypeOfColander" Relationship="Self.FK__ColanderT__TypeO__403A8C7D" FromRole="ColanderToDriver" ToRole="TypeOfColander" />
+    <NavigationProperty Name="KavimToColanders" Relationship="Self.FK__KavimToCo__Colan__4222D4EF" FromRole="ColanderToDriver" ToRole="KavimToColander" />
+  </EntityType>
+  <EntityType Name="Driver">
+    <Key>
+      <PropertyRef Name="DriverId" />
+    </Key>
+    <Property Name="DriverId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DriverName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="PhoneDriver" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ColanderToDrivers" Relationship="Self.FK__ColanderT__Drive__3F466844" FromRole="Drivers" ToRole="ColanderToDriver" />
+    <NavigationProperty Name="Preferences" Relationship="Self.FK__Preferenc__Drive__3D5E1FD2" FromRole="Drivers" ToRole="Preference" />
+  </EntityType>
+  <EntityType Name="kavim">
+    <Key>
+      <PropertyRef Name="KavId" />
+    </Key>
+    <Property Name="KavId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KavNamber" Type="Int64" Nullable="false" />
+    <Property Name="Point1" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Point2" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Direction" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="KavTimes" Relationship="Self.FK__KavTime__KavId__276EDEB3" FromRole="kavim" ToRole="KavTime" />
+  </EntityType>
+  <EntityType Name="KavimToColander">
+    <Key>
+      <PropertyRef Name="KavimToColanderID" />
+    </Key>
+    <Property Name="KavimToColanderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimeId" Type="Int64" Nullable="false" />
+    <Property Name="ColanderToDriverID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ColanderToDriver" Relationship="Self.FK__KavimToCo__Colan__4222D4EF" FromRole="KavimToColander" ToRole="ColanderToDriver" />
+    <NavigationProperty Name="KavTime" Relationship="Self.FK__KavimToCo__TimeI__412EB0B6" FromRole="KavimToColander" ToRole="KavTime" />
+  </EntityType>
+  <EntityType Name="KavTime">
+    <Key>
+      <PropertyRef Name="TimeId" />
+    </Key>
+    <Property Name="TimeId" Type="Int64" Nullable="false" />
+    <Property Name="KavId" Type="Int64" Nullable="false" />
+    <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="4" />
+    <Property Name="LongTime_minutes_" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="kavim" Relationship="Self.FK__KavTime__KavId__276EDEB3" FromRole="KavTime" ToRole="kavim" />
+    <NavigationProperty Name="KavimToColanders" Relationship="Self.FK__KavimToCo__TimeI__412EB0B6" FromRole="KavTime" ToRole="KavimToColander" />
+  </EntityType>
+  <EntityType Name="Preference">
+    <Key>
+      <PropertyRef Name="PreferID" />
+    </Key>
+    <Property Name="PreferID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DriverId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TypeOfColanderID" Type="Int32" Nullable="false" />
+    <Property Name="ExtraHour" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Driver" Relationship="Self.FK__Preferenc__Drive__3D5E1FD2" FromRole="Preference" ToRole="Drivers" />
+    <NavigationProperty Name="TypeOfColander" Relationship="Self.FK__Preferenc__TypeO__3E52440B" FromRole="Preference" ToRole="TypeOfColander" />
+  </EntityType>
+  <EntityType Name="TypeOfColander">
+    <Key>
+      <PropertyRef Name="TypeOfColanderID" />
+    </Key>
+    <Property Name="TypeOfColanderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ColanderName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="ColanderToDrivers" Relationship="Self.FK__ColanderT__TypeO__403A8C7D" FromRole="TypeOfColander" ToRole="ColanderToDriver" />
+    <NavigationProperty Name="Preferences" Relationship="Self.FK__Preferenc__TypeO__3E52440B" FromRole="TypeOfColander" ToRole="Preference" />
+  </EntityType>
+  <Association Name="FK__ColanderT__Drive__3F466844">
+    <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+    <End Role="ColanderToDriver" Type="Self.ColanderToDriver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drivers">
+        <PropertyRef Name="DriverId" />
+      </Principal>
+      <Dependent Role="ColanderToDriver">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ColanderT__TypeO__403A8C7D">
+    <End Role="TypeOfColander" Type="Self.TypeOfColander" Multiplicity="1" />
+    <End Role="ColanderToDriver" Type="Self.ColanderToDriver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfColander">
+        <PropertyRef Name="TypeOfColanderID" />
+      </Principal>
+      <Dependent Role="ColanderToDriver">
+        <PropertyRef Name="TypeOfColanderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KavimToCo__Colan__4222D4EF">
+    <End Role="ColanderToDriver" Type="Self.ColanderToDriver" Multiplicity="1" />
+    <End Role="KavimToColander" Type="Self.KavimToColander" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ColanderToDriver">
+        <PropertyRef Name="ColanderToDriverID" />
+      </Principal>
+      <Dependent Role="KavimToColander">
+        <PropertyRef Name="ColanderToDriverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Preferenc__Drive__3D5E1FD2">
+    <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+    <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drivers">
+        <PropertyRef Name="DriverId" />
+      </Principal>
+      <Dependent Role="Preference">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KavTime__KavId__276EDEB3">
+    <End Role="kavim" Type="Self.kavim" Multiplicity="1" />
+    <End Role="KavTime" Type="Self.KavTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kavim">
+        <PropertyRef Name="KavId" />
+      </Principal>
+      <Dependent Role="KavTime">
+        <PropertyRef Name="KavId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KavimToCo__TimeI__412EB0B6">
+    <End Role="KavTime" Type="Self.KavTime" Multiplicity="1" />
+    <End Role="KavimToColander" Type="Self.KavimToColander" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KavTime">
+        <PropertyRef Name="TimeId" />
+      </Principal>
+      <Dependent Role="KavimToColander">
+        <PropertyRef Name="TimeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Preferenc__TypeO__3E52440B">
+    <End Role="TypeOfColander" Type="Self.TypeOfColander" Multiplicity="1" />
+    <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfColander">
+        <PropertyRef Name="TypeOfColanderID" />
+      </Principal>
+      <Dependent Role="Preference">
+        <PropertyRef Name="TypeOfColanderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DriversEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ColanderToDrivers" EntityType="Self.ColanderToDriver" />
+    <EntitySet Name="Drivers" EntityType="Self.Driver" />
+    <EntitySet Name="kavims" EntityType="Self.kavim" />
+    <EntitySet Name="KavimToColanders" EntityType="Self.KavimToColander" />
+    <EntitySet Name="KavTimes" EntityType="Self.KavTime" />
+    <EntitySet Name="Preferences" EntityType="Self.Preference" />
+    <EntitySet Name="TypeOfColanders" EntityType="Self.TypeOfColander" />
+    <AssociationSet Name="FK__ColanderT__Drive__3F466844" Association="Self.FK__ColanderT__Drive__3F466844">
+      <End Role="Drivers" EntitySet="Drivers" />
+      <End Role="ColanderToDriver" EntitySet="ColanderToDrivers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ColanderT__TypeO__403A8C7D" Association="Self.FK__ColanderT__TypeO__403A8C7D">
+      <End Role="TypeOfColander" EntitySet="TypeOfColanders" />
+      <End Role="ColanderToDriver" EntitySet="ColanderToDrivers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KavimToCo__Colan__4222D4EF" Association="Self.FK__KavimToCo__Colan__4222D4EF">
+      <End Role="ColanderToDriver" EntitySet="ColanderToDrivers" />
+      <End Role="KavimToColander" EntitySet="KavimToColanders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Preferenc__Drive__3D5E1FD2" Association="Self.FK__Preferenc__Drive__3D5E1FD2">
+      <End Role="Drivers" EntitySet="Drivers" />
+      <End Role="Preference" EntitySet="Preferences" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KavTime__KavId__276EDEB3" Association="Self.FK__KavTime__KavId__276EDEB3">
+      <End Role="kavim" EntitySet="kavims" />
+      <End Role="KavTime" EntitySet="KavTimes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KavimToCo__TimeI__412EB0B6" Association="Self.FK__KavimToCo__TimeI__412EB0B6">
+      <End Role="KavTime" EntitySet="KavTimes" />
+      <End Role="KavimToColander" EntitySet="KavimToColanders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Preferenc__TypeO__3E52440B" Association="Self.FK__Preferenc__TypeO__3E52440B">
+      <End Role="TypeOfColander" EntitySet="TypeOfColanders" />
+      <End Role="Preference" EntitySet="Preferences" />
+    </AssociationSet>
+    <EntitySet Name="SchedularViews" EntityType="DriversModel.SchedularView" />
+  </EntityContainer>
+  <EntityType Name="SchedularView">
+    <Key>
+      <PropertyRef Name="TimeId" />
+      <PropertyRef Name="ColanderToDriverID" />
+      <PropertyRef Name="DriverName" />
+      <PropertyRef Name="ColanderName" />
+      <PropertyRef Name="StartTime" />
+      <PropertyRef Name="EndTime" />
+    </Key>
+    <Property Name="TimeId" Type="Int64" Nullable="false" />
+    <Property Name="ColanderToDriverID" Type="Int32" Nullable="false" />
+    <Property Name="DriverName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="ColanderName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+  </EntityType>
+</Schema>
