@@ -44,7 +44,7 @@ namespace BLL
                 {
                     for(int j=0;j<numOfDrivers;j++)
                     {
-ma[i,j].kav
+//ma[i,j].kav
                     }
                 }
             }
