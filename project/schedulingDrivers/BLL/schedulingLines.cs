@@ -36,7 +36,17 @@ namespace BLL
             matrizza = new List<Line_placement_for_shift[,]>();
             for(int i=0;i<1000;i++)
             {
-                matrizza.Add(new Line_placement_for_shift[numOfLines, numOfDrivers]);
+                matrizza.Add(new Line_placement_for_shift[numOfLines, numOfDrivers/numOfLines]);
+            }
+            foreach(Line_placement_for_shift[,] ma in matrizza)
+            {
+                for(int i=0;i<numOfLines;i++)
+                {
+                    for(int j=0;j<numOfDrivers;j++)
+                    {
+ma[i,j].kav
+                    }
+                }
             }
         }
 
