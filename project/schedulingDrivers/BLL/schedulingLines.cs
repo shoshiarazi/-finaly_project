@@ -33,7 +33,6 @@ namespace BLL
                 }
             }
             numOfLines = kavTimesList.Count();
-           
             matrizza = new List<Line_placement_for_shift[,]>();
             for(int i=0;i<1000;i++)
             {
