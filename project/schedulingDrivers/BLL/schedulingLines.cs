@@ -17,9 +17,10 @@ namespace BLL
         public List<KavTime> kavTimesList;
         public TimeSpan startShift;
         public TimeSpan endShift;
-        public List<Line_placement_for_shift[,]> matrizza;
+        //public List<Line_placement_for_shift[,]> matrizza;
         public List<int[,]> lis;
 
+        public List<TimeSystem> timeSystems;
 
 
         public schedulingLines(TimeSpan startShift, TimeSpan endShift, int numOfDrivers)
@@ -36,65 +37,115 @@ namespace BLL
             }
           //this.numOfLines =Math.Ceiling(kavTimesList.Count()/numOfLines);
           this.numOfLines = kavTimesList.Count()/numOfLines+1;
-            this.matrizza = new List<Line_placement_for_shift[,]>();
+            this.timeSystems = new List<TimeSystem>();
+            //this.matrizza = new List<Line_placement_for_shift[,]>();
             Random rnd1 = new Random();
             int i;
             int j;
 
             for (int k = 0; k < 1000; k++)
             {
-               this.matrizza.Add(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers]);
+              // this.matrizza.Add(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers]);
+                this.timeSystems.Add(new TimeSystem(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers],100));
             }
-
-            foreach (Line_placement_for_shift[,] ma in this.matrizza)
+            foreach (TimeSystem system in this.timeSystems)
+             // ma=  system.myList
+          //  foreach (Line_placement_for_shift[,] ma in this.matrizza)
             {
                 foreach (KavTime kav in this.kavTimesList)
                 {
                     i = rnd1.Next(0, numOfLines);
                     j = rnd1.Next(0, numOfDrivers);
-                    while (ma[i, j] != null)
+                    while (system.myList[i, j] != null)
                     {
                         i = rnd1.Next(0, numOfLines);
                         j = rnd1.Next(0, numOfDrivers);
                     }
-                    ma[i, j].kav = kav.KavId;
-                    ma[i, j].startTime = kav.DepartureTime;
-                    ma[i, j].Duration = kav.LongTime_minutes_;
+                    system.myList[i, j].kav = kav.KavId;
+                    system.myList[i, j].startTime = kav.DepartureTime;
+                    system.myList[i, j].Duration = kav.LongTime_minutes_;
                 }
             }
             
         }
-        public  int[] marks(List<Line_placement_for_shift[,]> allMatrixes)
+        //public  int[] marks(List<Line_placement_for_shift[,]> allMatrixes)
+        //{
+
+        //    int[] grades = new int[allMatrixes.Count()];
+        //    for(int i=0; i< allMatrixes.Count(); i++)
+        //    {
+        //        grades[i] = 100;
+        //    }
+        //    int k = 0;
+        //    int howManyEmptytogather = 0; //כמה חורים ריקים יש ברצף
+        //    int howManyEmpty = 0;//כמה ריקים לכל נהג
+        //    foreach(Line_placement_for_shift[,] matrix in allMatrixes)
+        //    {
+        //        for(int i=0;i<numOfDrivers;i++)
+        //        {
+        //            howManyEmpty = 0;
+        //            howManyEmptytogather = 0;
+        //            for (int j=0;j<numOfLines;j++)
+        //            {
+        //               if( matrix[j,i]!=null)
+        //                {
+        //                    if (i!= 0)
+        //                    {
+        //                        if (matrix[j, i - howManyEmptytogather] !=null)
+        //                        {
+        //                            if (matrix[j, i - howManyEmptytogather].startTime>matrix[j,i].startTime)
+        //                            {
+        //                                grades[k]--;
+        //                            }
+        //                            if(matrix[j, i - howManyEmptytogather].startTime+TimeSpan.FromMinutes(matrix[j, i - howManyEmptytogather].Duration)>matrix[j,i].startTime)
+        //                            {
+        //                                grades[k]--;
+        //                            }
+        //                        }
+        //                    }
+        //                    howManyEmptytogather = 0;
+        //                }
+        //                else
+        //                {
+        //                    howManyEmptytogather ++;
+        //                    howManyEmpty++;
+        //                }
+        //                grades[k] = grades[k] - howManyEmpty;
+        //            }
+        //        }
+        //        k++;
+        //    }
+
+        //    return grades;
+        //}
+        public void getmarks()
         {
-            int[] grades = new int[allMatrixes.Count()];
-            for(int i=0; i< allMatrixes.Count(); i++)
-            {
-                grades[i] = 100;
-            }
+
+           
             int k = 0;
             int howManyEmptytogather = 0; //כמה חורים ריקים יש ברצף
             int howManyEmpty = 0;//כמה ריקים לכל נהג
-            foreach(Line_placement_for_shift[,] matrix in allMatrixes)
+            foreach (TimeSystem system in this.timeSystems)
             {
-                for(int i=0;i<numOfDrivers;i++)
+                for (int i = 0; i < numOfDrivers; i++)
                 {
                     howManyEmpty = 0;
                     howManyEmptytogather = 0;
-                    for (int j=0;j<numOfLines;j++)
+                    for (int j = 0; j < numOfLines; j++)
                     {
-                       if( matrix[j,i]!=null)
+                        if (system.myList[j, i] != null)
                         {
-                            if (i!= 0)
+                            if (i != 0)
                             {
-                                if (matrix[j, i - howManyEmptytogather] !=null)
+                                if (system.myList[j, i - howManyEmptytogather] != null)
                                 {
-                                    if (matrix[j, i - howManyEmptytogather].startTime>matrix[j,i].startTime)
+                                    if (system.myList[j, i - howManyEmptytogather].startTime > system.myList[j, i].startTime)
                                     {
-                                        grades[k]--;
+                                        system.grade--;
                                     }
-                                    if(matrix[j, i - howManyEmptytogather].startTime+matrix[j, i - howManyEmptytogather].Duration>matrix[j,i].startTime)
+                                    if (system.myList[j, i - howManyEmptytogather].startTime + TimeSpan.FromMinutes(system.myList[j, i - howManyEmptytogather].Duration) > system.myList[j, i].startTime)
                                     {
-                                        grades[k]--;
+                                        system.grade--;
                                     }
                                 }
                             }
@@ -102,15 +153,18 @@ namespace BLL
                         }
                         else
                         {
-                            howManyEmptytogather ++;
+                            howManyEmptytogather++;
                             howManyEmpty++;
                         }
-                        grades[k] = grades[k] - howManyEmpty;
+                        system.grade = system.grade - howManyEmpty;
                     }
                 }
-                k++;
             }
-            return grades;
+
+
+            timeSystems.OrderBy(s => s.grade);
+        
         }
+    
     }
 }

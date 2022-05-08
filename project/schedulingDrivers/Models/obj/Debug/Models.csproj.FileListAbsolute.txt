@@ -10,3 +10,15 @@ C:\Users\Comp6\Desktop\project\schedulingDrivers\Models\obj\Debug\Models.csproj.
 C:\Users\Comp6\Desktop\project\schedulingDrivers\Models\obj\Debug\Models.csproj.CopyComplete
 C:\Users\Comp6\Desktop\project\schedulingDrivers\Models\obj\Debug\Models.dll
 C:\Users\Comp6\Desktop\project\schedulingDrivers\Models\obj\Debug\Models.pdb
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\Models.dll.config
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\Models.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\Models.pdb
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\EntityFramework.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\EntityFramework.xml
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\obj\Debug\Models.csproj.AssemblyReference.cache
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\obj\Debug\Models.csproj.CopyComplete
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\obj\Debug\Models.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\Models\obj\Debug\Models.pdb

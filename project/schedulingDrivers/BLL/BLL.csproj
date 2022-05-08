@@ -68,6 +68,7 @@
     <Compile Include="Line_placement_for_shift.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="schedulingLines.cs" />
+    <Compile Include="TimeSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
