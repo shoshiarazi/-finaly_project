@@ -22,39 +22,95 @@ namespace BLL
 
 
 
-        public schedulingLines(TimeSpan startShift, TimeSpan endShift)
+        public schedulingLines(TimeSpan startShift, TimeSpan endShift, int numOfDrivers)
         {
-            numOfDrivers= _driverEntities.Drivers.Count()/3;
-            foreach(KavTime kav in _driverEntities.KavTimes)
+            this.numOfDrivers = numOfDrivers;
+            this.startShift = startShift;
+            this.endShift = endShift;
+            foreach (KavTime kav in _driverEntities.KavTimes)
             {
-                if(kav.DepartureTime>startShift&& kav.DepartureTime<endShift)
+                if (kav.DepartureTime > this.startShift && kav.DepartureTime < this.endShift)
                 {
-                    kavTimesList.Add(kav);
+                   this.kavTimesList.Add(kav);
                 }
             }
-            numOfLines = kavTimesList.Count();
-            matrizza = new List<Line_placement_for_shift[,]>();
-            for(int i=0;i<1000;i++)
+          //this.numOfLines =Math.Ceiling(kavTimesList.Count()/numOfLines);
+          this.numOfLines = kavTimesList.Count()/numOfLines+1;
+            this.matrizza = new List<Line_placement_for_shift[,]>();
+            Random rnd1 = new Random();
+            int i;
+            int j;
+
+            for (int k = 0; k < 1000; k++)
             {
-                matrizza.Add(new Line_placement_for_shift[numOfLines, numOfDrivers/numOfLines]);
+               this.matrizza.Add(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers]);
             }
-            foreach(Line_placement_for_shift[,] ma in matrizza)
+
+            foreach (Line_placement_for_shift[,] ma in this.matrizza)
             {
-                for(int i=0;i<numOfLines;i++)
+                foreach (KavTime kav in this.kavTimesList)
                 {
-                    for(int j=0;j<numOfDrivers;j++)
+                    i = rnd1.Next(0, numOfLines);
+                    j = rnd1.Next(0, numOfDrivers);
+                    while (ma[i, j] != null)
                     {
-//ma[i,j].kav
+                        i = rnd1.Next(0, numOfLines);
+                        j = rnd1.Next(0, numOfDrivers);
+                    }
+                    ma[i, j].kav = kav.KavId;
+                    ma[i, j].startTime = kav.DepartureTime;
+                    ma[i, j].Duration = kav.LongTime_minutes_;
+                }
+            }
+            
+        }
+        public  int[] marks(List<Line_placement_for_shift[,]> allMatrixes)
+        {
+            int[] grades = new int[allMatrixes.Count()];
+            for(int i=0; i< allMatrixes.Count(); i++)
+            {
+                grades[i] = 100;
+            }
+            int k = 0;
+            int howManyEmptytogather = 0; //כמה חורים ריקים יש ברצף
+            int howManyEmpty = 0;//כמה ריקים לכל נהג
+            foreach(Line_placement_for_shift[,] matrix in allMatrixes)
+            {
+                for(int i=0;i<numOfDrivers;i++)
+                {
+                    howManyEmpty = 0;
+                    howManyEmptytogather = 0;
+                    for (int j=0;j<numOfLines;j++)
+                    {
+                       if( matrix[j,i]!=null)
+                        {
+                            if (i!= 0)
+                            {
+                                if (matrix[j, i - howManyEmptytogather] !=null)
+                                {
+                                    if (matrix[j, i - howManyEmptytogather].startTime>matrix[j,i].startTime)
+                                    {
+                                        grades[k]--;
+                                    }
+                                    if(matrix[j, i - howManyEmptytogather].startTime+matrix[j, i - howManyEmptytogather].Duration>matrix[j,i].startTime)
+                                    {
+                                        grades[k]--;
+                                    }
+                                }
+                            }
+                            howManyEmptytogather = 0;
+                        }
+                        else
+                        {
+                            howManyEmptytogather ++;
+                            howManyEmpty++;
+                        }
+                        grades[k] = grades[k] - howManyEmpty;
                     }
                 }
+                k++;
             }
+            return grades;
         }
-
-
-        //        public int schedulingLinesInMishmeret()
-        //        {
-        //for(int i=0;i<)
-        //        }
-
     }
 }
