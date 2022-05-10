@@ -9,7 +9,7 @@ using Models;
 
 namespace BLL
 {
-   public class schedulingLines
+   public class schedulingLines:ChromosomeBase
     {
         private readonly DriversEntities _driverEntities;
         public int numOfDrivers;
@@ -19,10 +19,11 @@ namespace BLL
         public TimeSpan endShift;
         //public List<Line_placement_for_shift[,]> matrizza;
         public List<int[,]> lis;
+        
 
         public List<TimeSystem> timeSystems;
 
-
+        
         public schedulingLines(TimeSpan startShift, TimeSpan endShift, int numOfDrivers)
         {
             this.numOfDrivers = numOfDrivers;
@@ -68,6 +69,37 @@ namespace BLL
             }
             
         }
+
+        public override IChromosome Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IChromosome CreateNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Crossover(IChromosome pair)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override void Generate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         //public  int[] marks(List<Line_placement_for_shift[,]> allMatrixes)
         //{
 
@@ -165,6 +197,15 @@ namespace BLL
             timeSystems.OrderBy(s => s.grade);
         
         }
-    
+
+        public override void Mutate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

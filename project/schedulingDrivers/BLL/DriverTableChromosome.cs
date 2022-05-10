@@ -1,128 +1,128 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Accord.Genetic;
-//using Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Accord.Genetic;
+using Models;
 
-//namespace BLL
-//{
-//    class DriverTableChromosome : ChromosomeBase
-//    {
-//        private readonly DriversEntities _driverEntities;
-//        static Random Random = new Random();
+namespace bll
+{
+   public class Drivertablechromosome : ChromosomeBase
+    {
+        private readonly DriversEntities _driverentities;
+        static Random random = new Random();
 
-//        static TimeSpan RandomStartTime()
-//        {
-//            return TimeSpan.FromMilliseconds(Random.Next((int)TimeSpan.FromHours(9).TotalMilliseconds,
-//                (int)TimeSpan.FromHours(17).TotalMilliseconds));
-//        }
-
-
-//        public List<SchedularView> Value;
-
-//        public DriverTableChromosome(DriversEntities driverEntities)
-//        {
-//            _driverEntities = driverEntities;
-//            Generate();
-//        }
-//        public DriverTableChromosome(List<SchedularView> slots, DriversEntities driverEntities)
-//        {
-//            _driverEntities = driverEntities;
-//            Value = slots.ToList();
-//        }
-//        public override void Generate()
-//        {
-//            IEnumerable<SchedularView> generateRandomSlots()
-//            {
+        static TimeSpan randomstarttime()
+        {
+            return TimeSpan.FromMilliseconds(random.Next((int)TimeSpan.FromHours(9).TotalMilliseconds,
+                (int)TimeSpan.FromHours(17).TotalMilliseconds));
+        }
 
 
-//                var drivers = _driverEntities.ColanderToDrivers.ToList();
-//                //  .Where(colanderToDrivers => colanderToDrivers.TypeOfColande).ToList();
-//                //.Include(ColanderToDrivers => ColanderToDrivers.KavimToColanders).ToList();
+        public List<SchedularView> value;
 
-//                foreach (var driver in drivers)
-//                {
-                    
-//                    //yield return new SchedularView()
-//                    //{
-//                    //    //Students = course.Students.Select(student => student.StudentId).ToList(),
-//                    //    //CourseId = course.Id,
-//                    //    //StartAt = RandomStartTime(),
-//                    //    //PlaceId = _driverEntities.Places.OrderBy(place => Guid.NewGuid()).FirstOrDefault().Id,
-//                    //    //TeacherId = course.Teacher.Id,
-//                    //    //Day = Random.Next(1, 5)
-//                    //};
-
-//                }
-//            }
-
-//            Value = generateRandomSlots().ToList();
-
-//        }
-
-//        public override IChromosome CreateNew()
-//        {
-//            var timeTableChromosome = new TimeTableChromosome(_driverEntities);
-//            timeTableChromosome.Generate();
-//            return timeTableChromosome;
-//        }
-
-//        public override IChromosome Clone()
-//        {
-//            return new TimeTableChromosome(Value, _driverEntities);
-//        }
-
-//        public override void Mutate()
-//        {
-//            var index = Random.Next(0, Value.Count - 1);
-//            var SchedularView = Value.ElementAt(index);
-//            SchedularView.StartAt = RandomStartTime();
-//            SchedularView.Day = Random.Next(1, 5);
-//            Value[index] = SchedularView;
-
-//        }
-
-//        public override void Crossover(IChromosome pair)
-//        {
-//            var randomVal = Random.Next(0, Value.Count - 2);
-//            var otherChromsome = pair as TimeTableChromosome;
-//            for (int index = randomVal; index < otherChromsome.Value.Count; index++)
-//            {
-//                Value[index] = otherChromsome.Value[index];
-//            }
-
-//        }
-
-//        public class FitnessFunction : IFitnessFunction
-//        {
-//            public double Evaluate(IChromosome chromosome)
-//            {
-//                double score = 1;
-//                var values = (chromosome as TimeTableChromosome).Value;
-//                var GetoverLaps = new Func<SchedularView, List<SchedularView>>(current => values
-//                    .Except(new[] { current })
-//                    .Where(slot => slot.Day == current.Day)
-//                    .Where(slot => slot.StartAt == current.StartAt
-//                                  || slot.StartAt <= current.EndAt && slot.StartAt >= current.StartAt
-//                                  || slot.EndAt >= current.StartAt && slot.EndAt <= current.EndAt)
-//                    .ToList());
+        public Drivertablechromosome(DriversEntities driverentities)
+        {
+            _driverentities = driverentities;
+            generate();
+        }
+        public Drivertablechromosome(List<SchedularView> slots, DriversEntities driverentities)
+        {
+            _driverentities = driverentities;
+            value = slots.ToList();
+        }
+        public override void Generate()
+        {
+            IEnumerable<SchedularView> generaterandomslots()
+            {
 
 
+                var drivers = _driverentities.ColanderToDrivers.ToList()
+                //  .where(colandertodrivers => colandertodrivers.typeofcolande).tolist();
+                .Include(colandertodrivers => colandertodrivers.kavimtocolanders).tolist();
 
-//                foreach (var value in values)
-//                {
-//                    var overLaps = GetoverLaps(value);
-//                    score -= overLaps.GroupBy(slot => slot.TeacherId).Sum(x => x.Count() - 1);
-//                    score -= overLaps.GroupBy(slot => slot.PlaceId).Sum(x => x.Count() - 1);
-//                    score -= overLaps.GroupBy(slot => slot.CourseId).Sum(x => x.Count() - 1);
-//                    score -= overLaps.Sum(item => item.Students.Intersect(value.Students).Count());
-//                }
+                foreach (var driver in drivers)
+                {
 
-//                score -= values.GroupBy(v => v.Day).Count() * 0.5;
-//                return Math.Pow(Math.Abs(score), -1);
-//            }
-//        }
-//    }
-//}
+                    //yield return new schedularview()
+                    //{
+                    //    //students = course.students.select(student => student.studentid).tolist(),
+                    //    //courseid = course.id,
+                    //    //startat = randomstarttime(),
+                    //    //placeid = _driverentities.places.orderby(place => guid.newguid()).firstordefault().id,
+                    //    //teacherid = course.teacher.id,
+                    //    //day = random.next(1, 5)
+                    //};
+
+                }
+            }
+
+            value = generaterandomslots().tolist();
+
+        }
+
+        public override ichromosome createnew()
+        {
+            var timetablechromosome = new timetablechromosome(_driverentities);
+            timetablechromosome.generate();
+            return timetablechromosome;
+        }
+
+        public override ichromosome clone()
+        {
+            return new timetablechromosome(value, _driverentities);
+        }
+
+        public override void mutate()
+        {
+            var index = random.next(0, value.count - 1);
+            var schedularview = value.elementat(index);
+            schedularview.startat = randomstarttime();
+            schedularview.day = random.next(1, 5);
+            value[index] = schedularview;
+
+        }
+
+        public override void crossover(ichromosome pair)
+        {
+            var randomval = random.next(0, value.count - 2);
+            var otherchromsome = pair as timetablechromosome;
+            for (int index = randomval; index < otherchromsome.value.count; index++)
+            {
+                value[index] = otherchromsome.value[index];
+            }
+
+        }
+
+        public class fitnessfunction : ifitnessfunction
+        {
+            public double evaluate(ichromosome chromosome)
+            {
+                double score = 1;
+                var values = (chromosome as timetablechromosome).value;
+                var getoverlaps = new func<schedularview, list<schedularview>>(current => values
+                    .except(new[] { current })
+                    .where(slot => slot.day == current.day)
+                    .where(slot => slot.startat == current.startat
+                                  || slot.startat <= current.endat && slot.startat >= current.startat
+                                  || slot.endat >= current.startat && slot.endat <= current.endat)
+                    .tolist());
+
+
+
+                foreach (var value in values)
+                {
+                    var overlaps = getoverlaps(value);
+                    score -= overlaps.groupby(slot => slot.teacherid).sum(x => x.count() - 1);
+                    score -= overlaps.groupby(slot => slot.placeid).sum(x => x.count() - 1);
+                    score -= overlaps.groupby(slot => slot.courseid).sum(x => x.count() - 1);
+                    score -= overlaps.sum(item => item.students.intersect(value.students).count());
+                }
+
+                score -= values.groupby(v => v.day).count() * 0.5;
+                return math.pow(math.abs(score), -1);
+            }
+        }
+    }
+}
