@@ -8,7 +8,7 @@ using Models;
 
 namespace bll
 {
-   public class Drivertablechromosome : ChromosomeBase
+    public class Drivertablechromosome : ChromosomeBase
     {
         private readonly DriversEntities _driverentities;
         static Random random = new Random();
@@ -40,7 +40,7 @@ namespace bll
 
                 var drivers = _driverentities.ColanderToDrivers.ToList()
                 //  .where(colandertodrivers => colandertodrivers.typeofcolande).tolist();
-                .Include(colandertodrivers => colandertodrivers.kavimtocolanders).tolist();
+                //.Include(colandertodrivers => colandertodrivers.kavimtocolanders).tolist();
 
                 foreach (var driver in drivers)
                 {
@@ -103,6 +103,7 @@ namespace bll
                 var values = (chromosome as timetablechromosome).value;
                 var getoverlaps = new func<schedularview, list<schedularview>>(current => values
                     .except(new[] { current })
+                    .where(slot => slot.day == current.day)
                     .where(slot => slot.day == current.day)
                     .where(slot => slot.startat == current.startat
                                   || slot.startat <= current.endat && slot.startat >= current.startat

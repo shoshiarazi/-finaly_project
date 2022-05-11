@@ -9,7 +9,7 @@ using Models;
 
 namespace BLL
 {
-   public class schedulingLines:ChromosomeBase
+    public class schedulingLines : ChromosomeBase
     {
         private readonly DriversEntities _driverEntities;
         public int numOfDrivers;
@@ -19,11 +19,11 @@ namespace BLL
         public TimeSpan endShift;
         //public List<Line_placement_for_shift[,]> matrizza;
         public List<int[,]> lis;
-        
+
 
         public List<TimeSystem> timeSystems;
 
-        
+
         public schedulingLines(TimeSpan startShift, TimeSpan endShift, int numOfDrivers)
         {
             this.numOfDrivers = numOfDrivers;
@@ -33,11 +33,11 @@ namespace BLL
             {
                 if (kav.DepartureTime > this.startShift && kav.DepartureTime < this.endShift)
                 {
-                   this.kavTimesList.Add(kav);
+                    this.kavTimesList.Add(kav);
                 }
             }
-          //this.numOfLines =Math.Ceiling(kavTimesList.Count()/numOfLines);
-          this.numOfLines = kavTimesList.Count()/numOfLines+1;
+            //this.numOfLines =Math.Ceiling(kavTimesList.Count()/numOfLines);
+            this.numOfLines = kavTimesList.Count() / numOfLines + 1;
             this.timeSystems = new List<TimeSystem>();
             //this.matrizza = new List<Line_placement_for_shift[,]>();
             Random rnd1 = new Random();
@@ -46,12 +46,12 @@ namespace BLL
 
             for (int k = 0; k < 1000; k++)
             {
-              // this.matrizza.Add(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers]);
-                this.timeSystems.Add(new TimeSystem(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers],100));
+                // this.matrizza.Add(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers]);
+                this.timeSystems.Add(new TimeSystem(new Line_placement_for_shift[this.numOfLines, this.numOfDrivers], 100));
             }
             foreach (TimeSystem system in this.timeSystems)
-             // ma=  system.myList
-          //  foreach (Line_placement_for_shift[,] ma in this.matrizza)
+            // ma=  system.myList
+            //  foreach (Line_placement_for_shift[,] ma in this.matrizza)
             {
                 foreach (KavTime kav in this.kavTimesList)
                 {
@@ -67,7 +67,7 @@ namespace BLL
                     system.myList[i, j].Duration = kav.LongTime_minutes_;
                 }
             }
-            
+
         }
 
         public override IChromosome Clone()
@@ -153,7 +153,7 @@ namespace BLL
         public void getmarks()
         {
 
-           
+
             int k = 0;
             int howManyEmptytogather = 0; //כמה חורים ריקים יש ברצף
             int howManyEmpty = 0;//כמה ריקים לכל נהג
@@ -195,7 +195,7 @@ namespace BLL
 
 
             timeSystems.OrderBy(s => s.grade);
-        
+
         }
 
         public override void Mutate()

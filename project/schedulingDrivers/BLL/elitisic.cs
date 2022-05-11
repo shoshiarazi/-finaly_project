@@ -12,7 +12,7 @@ namespace BLL
         public EliteSelection()
         {
         }
-        
+
         public void ApplySelection(List<IChromosome> chromosomes, int size)
         {
 
