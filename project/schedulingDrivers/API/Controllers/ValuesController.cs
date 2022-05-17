@@ -33,10 +33,10 @@ namespace API.Controllers
         // POST api/values
         public void Post([FromBody] Driver d)
         {
-            Bll bll = new Bll();
-            bll.addDriver(d);
+            driversbl bll = new driversbl();
+            bll.InsertDriver(d);
         }
-
+        
         // PUT api/values/5
         public void Put(int id, [FromBody] string value)
         {

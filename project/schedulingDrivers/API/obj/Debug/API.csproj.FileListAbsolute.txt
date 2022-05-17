@@ -196,3 +196,11 @@ C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\obj\De
 C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\obj\Debug\API.csproj.CopyComplete
 C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\obj\Debug\API.dll
 C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\obj\Debug\API.pdb
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Genetic.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Math.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Math.Core.dll
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Genetic.xml
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Math.xml
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.xml
+C:\Users\Comp6\Desktop\‏‏finaly_project\project\schedulingDrivers\API\bin\Accord.Math.Core.xml

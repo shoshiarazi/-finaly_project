@@ -24,7 +24,11 @@ namespace Models
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+        public DbSet<T> GetDbSet<T>() where T : class
+        {
+            return this.Set<T>();
+        }
+
         public virtual DbSet<ColanderToDriver> ColanderToDrivers { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<kavim> kavims { get; set; }

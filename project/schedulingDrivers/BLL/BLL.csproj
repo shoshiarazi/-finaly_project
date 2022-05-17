@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bll.cs" />
+    <Compile Include="driversbl.cs" />
     <Compile Include="DriverTableChromosome.cs" />
     <Compile Include="elitisic.cs" />
     <Compile Include="Line_placement_for_shift.cs" />
